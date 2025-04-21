@@ -3,17 +3,19 @@ module InputProcessor
   def self.process_input(data)
     delimeters = [",","\n"]
     if data.start_with?"//"
-      puts "Input delimeter is // #{data}"    
-    end
-    #TODO : Add Regex
-    delimeters = delimeters.each{|d| Regexp.escape(d)}
-    data = parse_data(data,delimeters)
+      puts "Input delimeter is // #{data}"  
+      #TODO : Add custom delimeters  
+    end     
+    data = data.gsub("\\n", "\n")
+    data = parse_data(data,delimeters)  
     return 0 if data.empty?
+    data = validate_data(data)
+    p add(data)
   end
 
-  def self.parse_data(data="",delimeters=[])    
-    regex = Regexp.new(delimeters.join("|"))
-    data = data.split(regex)
+  def self.parse_data(data="",delimeters=[])      
+    regex = Regexp.new(delimeters.join("|"))   
+    data = data.split(regex)    
     data.collect{|char| char.to_i}    
   end
 

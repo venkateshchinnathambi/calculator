@@ -11,6 +11,6 @@ module Calculator
   while input.upcase != "E"
     InputProcessor.process_input(input) unless input.empty?
     puts "Enter Input (E/e to Exit):"
-    input = gets();
+    input = gets().chomp;
   end
 end

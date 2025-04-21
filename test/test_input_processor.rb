@@ -15,17 +15,15 @@ class InputProcessorTest < Minitest::Test
 
   def test_parse_data_with_valid_value_comman_and_newline
     expected = [2,4,5]
-    input = "2,4\n5"
-    delimeter = [",","\n"]
-    delimeter = delimeter.each{|d| Regexp.escape(d)}
-    actual = InputProcessor.parse_data(input,delimeter)    
+    input = "2\n4\n5"
+    delimeter = [",","\n"]        
+    actual = InputProcessor.parse_data(input,delimeter)       
     assert_equal expected, actual
   end
 
   def test_parse_data_with_empty_values
     expected = []
-    delimeters = [",","\n"]
-    delimeters = delimeters.each{|d| Regexp.escape(d)}
+    delimeters = [",","\n"]    
     actual = InputProcessor.parse_data("",delimeters)
     assert_equal expected, actual
   end
@@ -59,6 +57,29 @@ class InputProcessorTest < Minitest::Test
     expected = 6
     actual = InputProcessor.add(data)
     assert_equal expected, actual
+  end
+
+  def test_process_input_with_valid_input
+    input = "1\n5\n6"
+    expected = 12
+    actual = InputProcessor.process_input(input)
+    assert_equal expected,actual
+  end
+
+  def test_process_input_with_in_valid_input
+    input = "1\n5\n-6"
+    expected = "negatives not allowed [-6]"
+    errors = assert_raises(StandardError) do 
+       InputProcessor.process_input(input)
+    end
+    assert_equal expected,errors.message
+  end
+
+  def test_process_input_with_valid_input_with_comma
+    input = "1\n5,6"
+    expected = 12
+    actual = InputProcessor.process_input(input)
+    assert_equal expected,actual
   end
 
   
