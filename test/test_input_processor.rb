@@ -1,13 +1,21 @@
 require "./test_helper"
-require "../lib/processor/input_processor"
 
 class InputProcessorTest < Minitest::Test
  
   def setup
   end
+  def test_parse_data_with_valid_values_comma_seperated
+    expected = [2,4]
+    input = "2,4"
+    delimeter = [","]
+    actual = InputProcessor.parse_data(input,delimeter)    
+    assert_equal expected, actual
+  end
+
   def test_parse_data_with_empty_values
     expected = 0
     actual = InputProcessor.parse_data("","")
-    assert expected, actual
+    assert_equal expected, actual
   end
+  
 end

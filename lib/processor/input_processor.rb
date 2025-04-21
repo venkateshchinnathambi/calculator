@@ -12,7 +12,9 @@ module InputProcessor
 
   def self.parse_data(data="",delimeters=[])
     return 0 if data.empty?
-    #TODO : call validatore
+    regex = Regexp.new(delimeters.join("|"))
+    data = data.split(regex)
+    data.collect{|char| char.to_i}    
   end
 
   def validate_data(data)
