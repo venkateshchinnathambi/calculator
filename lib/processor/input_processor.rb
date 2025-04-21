@@ -7,10 +7,15 @@ module InputProcessor
       #TODO : Add custom delimeters  
     end     
     data = data.gsub("\\n", "\n")
-    data = parse_data(data,delimeters)  
     return 0 if data.empty?
-    data = validate_data(data)
-    p add(data)
+    if data.match(/\d*(,|\n)\d$/).nil?
+      p "Please Enter valid input format"
+    else     
+      data = parse_data(data,delimeters)  
+      return 0 if data.empty?
+      data = validate_data(data)
+      p add(data)
+    end
   end
 
   def self.parse_data(data="",delimeters=[])      

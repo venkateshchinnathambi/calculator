@@ -35,6 +35,20 @@ class InputProcessorTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_parse_data_with_valid_values_with_invalid_delimeter
+    expected = "Please Enter valid input format"
+    input = "1,\n"
+    actual = InputProcessor.process_input(input)    
+    assert_equal expected, actual
+  end
+
+  def test_parse_data_with_valid_values_with_invalid_delimeter_with_extra_comma
+    expected = "Please Enter valid input format"
+    input = "1,2,"
+    actual = InputProcessor.process_input(input)    
+    assert_equal expected, actual
+  end
+
   def test_validate_digits_with_negatives
     data = [1,-2,-5]  
     expected = "negatives not allowed [-2, -5]"  
