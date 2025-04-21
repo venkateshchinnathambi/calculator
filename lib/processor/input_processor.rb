@@ -11,8 +11,8 @@ module InputProcessor
       data.scan(/\[(.*?)\]/).each{|delim|delimeters.push(delim.first)}
       data = data.split("\n")[1]
      end    
-     
-    end         
+    end   
+          
     escaped_delimeters = delimeters.map { |d| Regexp.escape(d) }.join("|")  
     puts "escaped #{delimeters}"  
     return 0 if data.empty?

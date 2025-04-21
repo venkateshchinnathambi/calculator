@@ -4,8 +4,7 @@ require_relative "Calculator/version"
 require_relative "./processor/input_processor"
 
 
-module Calculator
-  #include InputProcessor
+module Calculator  
   class Error < StandardError; end 
   input = ""
   while input.upcase != "E"
