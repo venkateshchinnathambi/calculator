@@ -27,7 +27,7 @@ module InputProcessor
   def self.validate_data(data)
     negatives = data.select{|digit| digit.negative?}
     raise StandardError,"negatives not allowed #{negatives}" unless negatives.empty?
-    data.reject!{|digit| digit >= 1000}
+    data.reject!{|digit| digit > 1000}
     return data
   end
 

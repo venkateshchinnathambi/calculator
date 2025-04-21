@@ -59,7 +59,7 @@ class InputProcessorTest < Minitest::Test
   end
 
   def test_validate_data_with_value_greater_than_range
-    data = [1,1000,5]  
+    data = [1,1001,5]  
     expected = [1,5]    
     
     actual =InputProcessor.validate_data(data)   
