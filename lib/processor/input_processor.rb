@@ -20,9 +20,13 @@ module InputProcessor
   def self.validate_data(data)
     negatives = data.select{|digit| digit.negative?}
     raise StandardError,"negatives not allowed #{negatives}" unless negatives.empty?
+    return data
   end
 
-  def add(numbers)
+  def self.add(numbers)
+    sum = 0
+    numbers.each{|num|sum+=num}
+    sum
   end
 
 
