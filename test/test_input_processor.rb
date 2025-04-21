@@ -1,30 +1,31 @@
 require "./test_helper"
 
 class InputProcessorTest < Minitest::Test
- 
-  def setup
-  end
 
   def test_parse_data_with_valid_values_comma_seperated
     expected = [2,4]
     input = "2,4"
-    delimeter = [","]
-    actual = InputProcessor.parse_data(input,delimeter)    
+    delimeters = [","]
+    escaped_delimeters = delimeters.map { |d| Regexp.escape(d) }.join("|")  
+    actual = InputProcessor.parse_data(input,escaped_delimeters)    
     assert_equal expected, actual
   end
 
   def test_parse_data_with_valid_value_comman_and_newline
     expected = [2,4,5]
     input = "2\n4\n5"
-    delimeter = [",","\n"]        
-    actual = InputProcessor.parse_data(input,delimeter)       
+    delimeters = [",","\n"]     
+    escaped_delimeters = delimeters.map { |d| Regexp.escape(d) }.join("|")    
+    actual = InputProcessor.parse_data(input,escaped_delimeters)       
     assert_equal expected, actual
   end
 
   def test_parse_data_with_empty_values
+    input = ""
     expected = []
     delimeters = [",","\n"]    
-    actual = InputProcessor.parse_data("",delimeters)
+    escaped_delimeters = delimeters.map { |d| Regexp.escape(d) }.join("|")    
+    actual = InputProcessor.parse_data(input,escaped_delimeters)   
     assert_equal expected, actual
   end
 
@@ -104,5 +105,28 @@ class InputProcessorTest < Minitest::Test
     assert_equal expected,actual
   end
 
-  
+def test_process_input_with_custom_delimeter
+  input = "//[*][#]\n1*2#5"
+  expected = 8
+  actual = InputProcessor.process_input(input)
+  assert_equal expected,actual
+end
+def test_process_input_with_custom_delimeter
+  input = "//[**][%][##]\n1**2##5%2"
+  expected = 10
+  actual = InputProcessor.process_input(input)
+  assert_equal expected,actual
+end
+def test_process_input_with_custom_delimeter
+  input = "//[**][%][##]\n1**2#5%2"
+  expected = 5
+  actual = InputProcessor.process_input(input)
+  assert_equal expected,actual
+end
+def test_process_input_with_custom_delimeter_invalid_delim
+  input = "//[**][%][##]\n1**2#5%2**"
+  expected = "Please Enter valid input format"
+  actual = InputProcessor.process_input(input)
+  assert_equal expected,actual
+end
 end
