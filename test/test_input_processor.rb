@@ -23,8 +23,17 @@ class InputProcessorTest < Minitest::Test
   end
 
   def test_parse_data_with_empty_values
-    expected = 0
-    actual = InputProcessor.parse_data("","")
+    expected = []
+    delimeters = [",","\n"]
+    delimeters = delimeters.each{|d| Regexp.escape(d)}
+    actual = InputProcessor.parse_data("",delimeters)
+    assert_equal expected, actual
+  end
+
+  def test_process_input_with_empty
+    input = ""
+    expected = []
+    actual = InputProcessor.process_input(input)
     assert_equal expected, actual
   end
   
