@@ -58,6 +58,14 @@ class InputProcessorTest < Minitest::Test
     assert_equal expected,errors.message
   end
 
+  def test_validate_data_with_value_greater_than_range
+    data = [1,1000,5]  
+    expected = [1,5]    
+    
+    actual =InputProcessor.validate_data(data)   
+    assert_equal expected,actual
+  end
+
   def test_validate_digits_with_valid_values
     data = [1,2,5]  
     expected = [1,2,5]    
