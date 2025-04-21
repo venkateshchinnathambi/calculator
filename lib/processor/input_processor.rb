@@ -8,6 +8,7 @@ module InputProcessor
     #TODO : Add Regex
     delimeters = delimeters.each{|d| Regexp.escape(d)}
     data = parse_data(data,delimeters)
+    return 0 if data.empty?
   end
 
   def self.parse_data(data="",delimeters=[])    
@@ -16,8 +17,9 @@ module InputProcessor
     data.collect{|char| char.to_i}    
   end
 
-  def validate_data(data)
-    #TODO : Validate for legimate data
+  def self.validate_data(data)
+    negatives = data.select{|digit| digit.negative?}
+    raise StandardError,"negatives not allowed #{negatives}" unless negatives.empty?
   end
 
   def add(numbers)

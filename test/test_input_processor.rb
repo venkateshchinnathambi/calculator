@@ -32,9 +32,20 @@ class InputProcessorTest < Minitest::Test
 
   def test_process_input_with_empty
     input = ""
-    expected = []
+    expected = 0
     actual = InputProcessor.process_input(input)
     assert_equal expected, actual
   end
+
+  def test_validate_digits_with_negatives
+    data = [1,-2,-5]  
+    expected = "negatives not allowed [-2, -5]"  
+    errors = assert_raises(StandardError)do
+      InputProcessor.validate_data(data)
+    end
+    assert_equal expected,errors.message
+  end
+
+ 
   
 end
